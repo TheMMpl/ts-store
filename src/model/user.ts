@@ -1,11 +1,18 @@
 import pool from '../dbConfig';
 
 export default class User {
+  id: number;
   email: string;
   password: string;
   role: 'user' | 'admin';
 
-  constructor(email: string, password: string, role: 'user' | 'admin') {
+  constructor(
+    id: number,
+    email: string,
+    password: string,
+    role: 'user' | 'admin'
+  ) {
+    this.id = id;
     this.email = email;
     this.password = password;
     this.role = role;
@@ -18,17 +25,22 @@ export default class User {
     const res = await client.query(query, [email]);
     if (res.rowCount == 1) {
       const user = res.rows[0];
-      return new User(user.email, user.password, user.role);
+      return new User(user.is, user.email, user.password, user.role);
     } else {
       return null;
     }
   }
 
-  static async addUser(user: User): Promise<void> {
+  static async addUser(user: Omit<User, 'id'>): Promise<User> {
     const client = await pool.connect();
 
     const query =
-      'INSERT INTO users (email, password, role) VALUES ($1, $2, $3)';
-    await client.query(query, [user.email, user.password, user.role]);
+      'INSERT INTO users (email, password, role) VALUES ($1, $2, $3) RETURNING id';
+    const result = await client.query(query, [
+      user.email,
+      user.password,
+      user.role,
+    ]);
+    return new User(result.rows[0].id, user.email, user.password, user.role);
   }
 }
