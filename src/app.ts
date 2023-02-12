@@ -6,11 +6,13 @@ import session from 'express-session';
 
 import store from './routes/store';
 import User from './model/user';
+import ShoppingCart from './model/shoppingCart';
 
 declare module 'express-session' {
   interface SessionData {
     isLogged: boolean;
     user: User | null;
+    shoppingCart: ShoppingCart | null;
   }
 }
 
@@ -34,6 +36,6 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(store);
+app.use('/', store);
 
 http.createServer(app).listen(3000);
