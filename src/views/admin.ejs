@@ -23,20 +23,6 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">Kontakt</a>
               </li>
-              <!--<li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-animation="true" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="w">Something else here</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
-              </li>-->
             </ul>
             <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -55,13 +41,14 @@
       </nav>
       <nav>
         <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Nowe</button>
-          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">duża kategoria 1</button>
-          <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">duża kategoria 2</button>
+          <button class="nav-link active" id="nav-account" data-bs-toggle="tab" data-bs-target="#nav-account-tab" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Account</button>
+          <button class="nav-link" id="nav-users" data-bs-toggle="tab" data-bs-target="#nav-users-tab" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Users</button>
+          <button class="nav-link" id="nav-orders" data-bs-toggle="tab" data-bs-target="#nav-orders-tab" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Orders</button>
+          <button class="nav-link" id="nav-stock" data-bs-toggle="tab" data-bs-target="#nav-stock-tab" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Stock</button>
           <!--<button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button>-->
         </div>
       </nav>
-      <div class="tab-content" id="nav-tabContent">
+      <div class="tab-content" id="nav-account-tab">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
           <section class="py-5 text-center container">
             <div class="row py-lg-5">
@@ -77,7 +64,7 @@
           </section>
 
         </div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+        <div class="tab-pane fade" id="nav-users-tab" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
           <section class="py-2 text-center container">
             <div class="list-group-flush">
               <a href="#" class="list-group-item list-group-item-action">A simple default list group item</a>
@@ -94,25 +81,8 @@
           </section>
           
         </div>
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
-        <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...</div>
+        <div class="tab-pane fade" id="nav-stock-tab" role="tabpanel" aria-labelledby="nav-stock" tabindex="0">...</div>
       </div>      
-      
-      <!-- tu test z collapse-->
-      <!--<nav>
-        <div class="nav nav-tabs justify-content-center" id="nav-col" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
-          <button class="nav-link" id="nav-profile-tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
-          <button class="nav-link" id="nav-contact-tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
-          <button class="nav-link" id="nav-disabled-tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button>
-        </div>
-      </nav>
-      <div class="tab-content" id="nav-tabcol">
-        <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">ziu1</div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">ziu2</div>
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
-        <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">...</div>
-      </div>-->
   </header>
   
   <main>
