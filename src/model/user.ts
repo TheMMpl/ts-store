@@ -31,11 +31,16 @@ export default class User {
     }
   }
 
-  static async addUser(user: Omit<User, 'id'>): Promise<void> {
+  static async addUser(user: Omit<User, 'id'>): Promise<User> {
     const client = await pool.connect();
 
     const query =
-      'INSERT INTO users (email, password, role) VALUES ($1, $2, $3)';
-    await client.query(query, [user.email, user.password, user.role]);
+      'INSERT INTO users (email, password, role) VALUES ($1, $2, $3) RETURNING id';
+    const result = await client.query(query, [
+      user.email,
+      user.password,
+      user.role,
+    ]);
+    return new User(result.rows[0].id, user.email, user.password, user.role);
   }
 }

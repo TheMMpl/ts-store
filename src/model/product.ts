@@ -1,16 +1,17 @@
 import pool from '../dbConfig';
+import Money from './money';
 
 export default class Product {
   id: number;
   name: string;
-  price: number;
+  price: Money;
   description: string;
   img_url: string;
 
   constructor(
     id: number,
     name: string,
-    price: number,
+    price: Money,
     description: string,
     img_url: string
   ) {
@@ -21,7 +22,7 @@ export default class Product {
     this.img_url = img_url;
   }
 
-  static async findById(id: number): Promise<Product | null> {
+  static async findProductById(id: number): Promise<Product | null> {
     const client = await pool.connect();
 
     const query = 'SELECT * FROM products WHERE id=$1';
@@ -31,7 +32,7 @@ export default class Product {
       return new Product(
         prod.id,
         prod.name,
-        prod.price * 100,
+        Money.ofDecimal(prod.price),
         prod.description,
         prod.img_url
       );
@@ -40,22 +41,41 @@ export default class Product {
     }
   }
 
-  static async addProduct(prod: Omit<Product, 'id'>): Promise<void> {
+  static async addProduct(
+    prod: Omit<Product, 'id'> & { categories?: number[] }
+  ): Promise<Product> {
     const client = await pool.connect();
 
     const query =
-      'INSERT INTO products (name, price, description, img_url) VALUES ($1, $2, $3, $4)';
+      'INSERT INTO products (name, price, description, img_url) VALUES ($1, $2, $3, $4) RETURNING id';
 
-    const price = (prod.price / 100.0).toFixed(2);
-    await client.query(query, [
+    const prodId = (
+      await client.query(query, [
+        prod.name,
+        prod.price.toDecimal(),
+        prod.description,
+        prod.img_url,
+      ])
+    ).rows[0].id;
+
+    if (prod.categories != null) {
+      const queryProductCategory =
+        'INSERT INTO products_categories (product_id, category_id) VALUES ($1, $2)';
+      for (const categoryId of prod.categories) {
+        await client.query(queryProductCategory, [prodId, categoryId]);
+      }
+    }
+
+    return new Product(
+      prodId,
       prod.name,
-      price,
+      prod.price,
       prod.description,
-      prod.img_url,
-    ]);
+      prod.img_url
+    );
   }
 
-  static async removeProductById(id: number): Promise<void> {
+  static async removeProduct(id: number): Promise<void> {
     const client = await pool.connect();
 
     const query1 = 'DELETE FROM products WHERE id=$1';

@@ -4,7 +4,10 @@ import path from 'path';
 import express, { Express } from 'express';
 import session from 'express-session';
 
-import store from './routes/store';
+import storeRouter from './routes/store';
+import authRouter from './routes/auth';
+import userRouter from './routes/user';
+
 import User from './model/user';
 import ShoppingCart from './model/shoppingCart';
 
@@ -20,7 +23,10 @@ const app: Express = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use('/css', express.static(__dirname + '/../node_modules/bootstrap/dist/css'));
+app.use(
+  '/css',
+  express.static(__dirname + '/../node_modules/bootstrap/dist/css')
+);
 
 app.use(
   session({
@@ -36,6 +42,8 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/', store);
+app.use('/', storeRouter);
+app.use('/', authRouter);
+app.use('/', userRouter);
 
 http.createServer(app).listen(3000);

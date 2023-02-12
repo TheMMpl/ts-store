@@ -9,7 +9,7 @@ export default class Category {
     this.name = name;
   }
 
-  static async getCategories() {
+  static async getCategories(): Promise<Category[]> {
     const client = await pool.connect();
 
     const query = 'SELECT * FROM categories';
@@ -19,7 +19,7 @@ export default class Category {
     });
   }
 
-  static async removeCategory(id: number) {
+  static async removeCategory(id: number): Promise<void> {
     const client = await pool.connect();
 
     const query1 = 'DELETE FROM categories WHERE id=$1';
@@ -28,7 +28,7 @@ export default class Category {
     await client.query(query2, [id]);
   }
 
-  static async addCategory(name: string) {
+  static async addCategory(name: string): Promise<void> {
     const client = await pool.connect();
     const query = 'INSERT INTO categories (name) VALUES ($1)';
     await client.query(query, [name]);
