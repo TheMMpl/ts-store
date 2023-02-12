@@ -26,4 +26,8 @@ userRouter.get('/profile', (req: Request, res: Response) => {
   }
 });
 
+userRouter.get('/admin', (req: Request, res: Response) => {
+  res.render('admin');
+});
+
 export default userRouter;

@@ -25,19 +25,23 @@ authRouter.post('/login', (req: Request, res: Response) => {
 
     (async () => {
       const foundUser = await User.findByEmail(email);
-      if (foundUser !== null) {
-        compare(password, foundUser.password, (err, same) => {
-          if (same) {
-            req.session.isLogged = true;
-            req.session.user = foundUser;
-            res.redirect('/');
-          } else {
-            res.render('login');
-          }
+      if (foundUser == null) {
+        res.render('login', {
+          errors: 'Email not found.',
         });
-      } else {
-        res.render('login');
+        return;
       }
+      compare(password, foundUser.password, (err, same) => {
+        if (same) {
+          req.session.isLogged = true;
+          req.session.user = foundUser;
+          res.redirect('/');
+        } else {
+          res.render('login', {
+            errors: 'Wrong password.',
+          });
+        }
+      });
     })();
   } catch (error) {
     res.status(400).send(error);

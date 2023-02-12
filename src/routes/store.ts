@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import type { Request, Response } from 'express';
 
-import Category from '../model/category';
 import Product from '../model/product';
 import Money from '../model/money';
 
@@ -46,6 +45,16 @@ storeRouter.post('/add_product', (req: Request, res: Response) => {
         categories: prodCategory,
       });
       res.redirect('/profile');
+    })();
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+storeRouter.get('/order', (req: Request, res: Response) => {
+  try {
+    (async () => {
+      // Order.placeOrder()
     })();
   } catch (error) {
     res.status(400).send(error);

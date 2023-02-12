@@ -25,7 +25,7 @@ export default class User {
     const res = await client.query(query, [email]);
     if (res.rowCount == 1) {
       const user = res.rows[0];
-      return new User(user.is, user.email, user.password, user.role);
+      return new User(user.id, user.email, user.password, user.role);
     } else {
       return null;
     }
