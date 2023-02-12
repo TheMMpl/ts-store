@@ -1,31 +1,34 @@
+import Money from './money';
+import Product from './product';
+
 type ShoppingCartEntry = {
-  id: number;
+  product: Product;
   quantity: number;
 };
 
 export default class ShoppingCart {
   products: ShoppingCartEntry[] = [];
 
-  private getIndexById(productId: number): number {
-    return this.products.findIndex((product) => {
-      return product.id == productId;
+  private getIndex(product: Product): number {
+    return this.products.findIndex((entry) => {
+      return entry.product.id == product.id;
     });
   }
 
-  addProduct(productId: number, quantity: number): void {
-    const index = this.getIndexById(productId);
+  addProduct(product: Product, quantity: number = 1): void {
+    const index = this.getIndex(product);
     if (index > -1) {
       this.products[index].quantity += quantity;
     } else {
       this.products.push({
-        id: productId,
+        product: product,
         quantity: quantity,
       });
     }
   }
 
-  removeProduct(productId: number, quantity: number): void {
-    const index = this.getIndexById(productId);
+  removeProduct(product: Product, quantity: number = 1): void {
+    const index = this.getIndex(product);
     if (index == -1) return;
 
     if (this.products[index].quantity <= quantity) {
@@ -35,10 +38,18 @@ export default class ShoppingCart {
     }
   }
 
-  getQuantity(id: number): number {
-    for (const product of this.products) {
-      if (product.id == id) return product.quantity;
+  getQuantity(product: Product): number {
+    for (const entry of this.products) {
+      if (entry.product.id == product.id) return entry.quantity;
     }
     return 0;
+  }
+
+  getTotalCost(): Money {
+    let sum = new Money(0);
+    this.products.forEach((entry) => {
+      sum.add(Money.mult(entry.product.price, entry.quantity));
+    });
+    return sum;
   }
 }

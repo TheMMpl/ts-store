@@ -12,4 +12,26 @@ export default class Money {
   toDecimal(): number {
     return Number.parseFloat((this.amount / 100).toFixed(2));
   }
+
+  static add(lhs: Money, rhs: Money): Money {
+    return new Money(lhs.amount + rhs.amount);
+  }
+
+  add(oth: Money): void {
+    this.amount += oth.amount;
+  }
+
+  static mult(lhs: Money, mult: number): Money {
+    if (!Number.isInteger(mult) || mult < 0)
+      throw new Error('Wrong multiplier!');
+
+    return new Money(lhs.amount * mult);
+  }
+
+  mult(mult: number): void {
+    if (!Number.isInteger(mult) || mult < 0)
+      throw new Error('Wrong multiplier!');
+
+    this.amount *= mult;
+  }
 }

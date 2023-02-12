@@ -71,7 +71,7 @@ CREATE TABLE orders (
   order_date DATE NOT NULL DEFAULT CURRENT_DATE,
   products INT[][] NOT NULL,
   price DECIMAL(10, 2) NOT NULL,
-  status ORDER_STATUS NOT NULL
+  status ORDER_STATUS NOT NULL DEFAULT pending
 );
 
 
