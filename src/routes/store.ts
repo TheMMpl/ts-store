@@ -98,6 +98,30 @@ storeRouter.post('/add_to_cart', async (req: Request, res: Response) => {
   }
 });
 
+//tymczasowe
+storeRouter.get('/product1', async (req: Request, res: Response) => {
+  try {
+    res.render('product1');
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+storeRouter.get('/test', async (req: Request, res: Response) => {
+  try {
+    res.render('test');
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+storeRouter.get('/browse', async (req: Request, res: Response) => {
+  try {
+    res.render('browse');
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 // storeRouter.get('/order', (req: Request, res: Response) => {
 //   try {
 //     (async () => {

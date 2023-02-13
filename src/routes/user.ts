@@ -30,6 +30,7 @@ userRouter.get('/profile', (req: Request, res: Response) => {
 //   res.render('admin');
 // });
 
+//skopiowałem to z profile
 userRouter.get('/admin', (req: Request, res: Response) => {
   try {
     (async () => {
