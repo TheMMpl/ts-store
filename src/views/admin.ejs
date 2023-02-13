@@ -130,7 +130,63 @@
         </div>
       </div>
       <% } else{ %>
-        <h1>Only for Admin</h1>
+        <nav>
+          <div
+            class="nav nav-tabs justify-content-center"
+            id="nav-tab"
+            role="tablist"
+          >
+            <button
+              class="nav-link active"
+              id="nav-account-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-account"
+              type="button"
+              role="tab"
+              aria-controls="nav-home"
+              aria-selected="false"
+            >
+              Account
+            </button>
+            <button
+              class="nav-link"
+              id="nav-orders-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-orders"
+              type="button"
+              role="tab"
+              aria-controls="nav-profile"
+              aria-selected="false"
+            >
+              Orders
+            </button>
+            <!--<button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button>-->
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-content-tab">
+          <div
+            class="tab-pane fade show active"
+            id="nav-account"
+            role="tabpanel"
+            aria-labelledby="nav-account-tab"
+            tabindex="0"
+          >
+          <div class="container py-5">
+            <%- user.email %>
+          </div>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="nav-orders"
+            role="tabpanel"
+            aria-labelledby="nav-orders-tab"
+            tabindex="0"
+          >
+          <div class="container py-5">
+            orders
+          </div>
+        </div>
+        </div>
         <% } %>
     </header>
 
@@ -139,38 +195,6 @@
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", function(){
-// make it as accordion for smaller screens
-if (window.innerWidth > 992) {
-
-	document.querySelectorAll('.navbar .nav-item').forEach(function(everyitem){
-
-		everyitem.addEventListener('mouseover', function(e){
-
-			let el_link = this.querySelector('a[data-bs-toggle]');
-
-			if(el_link != null){
-				let nextEl = el_link.nextElementSibling;
-				el_link.classList.add('show');
-				nextEl.classList.add('show');
-			}
-
-		});
-		everyitem.addEventListener('mouseleave', function(e){
-			let el_link = this.querySelector('a[data-bs-toggle]');
-
-			if(el_link != null){
-				let nextEl = el_link.nextElementSibling;
-				el_link.classList.remove('show');
-				nextEl.classList.remove('show');
-			}
-		})
-	});
-
-}
-}); 
-      </script>-->
     <script>
       const triggerTabList = document.querySelectorAll('#nav-tab button');
       triggerTabList.forEach((triggerEl) => {
@@ -180,43 +204,7 @@ if (window.innerWidth > 992) {
           event.preventDefault();
           tabTrigger.show();
         });
-        // triggerEl.addEventListener('mouseleave', event => {
-        //     event.preventDefault()
-        //     tabTrigger.hide()
-        //     })
       });
     </script>
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", function(){
-// make it as accordion for smaller screens
-	document.querySelectorAll('.nav .nav-link').forEach(function(everyitem){
-
-		everyitem.addEventListener('mouseover', function(e){
-
-			let el_link = this.querySelector('a[data-bs-toggle]');
-
-			if(el_link != null){
-				let nextEl = el_link.nextElementSibling;
-				el_link.classList.add('show');
-				nextEl.classList.add('show');
-			}
-
-		});
-		everyitem.addEventListener('mouseleave', function(e){
-			let el_link = this.querySelector('a[data-bs-toggle]');
-
-			if(el_link != null){
-				let nextEl = el_link.nextElementSibling;
-				el_link.classList.remove('show');
-				nextEl.classList.remove('show');
-			}
-
-
-		})
-	});
-
-// end if innerWidth
-}); 
-      </script>-->
   </body>
 </html>
