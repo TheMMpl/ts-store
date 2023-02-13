@@ -1,9 +1,7 @@
 import { Router } from 'express';
 import type { Request, Response } from 'express';
 
-import Product from '../model/product';
-import Money from '../model/money';
-import ShoppingCart from '../model/shoppingCart';
+import { ShoppingCart, Money, Product } from '../model';
 
 const storeRouter = Router();
 
@@ -55,8 +53,17 @@ storeRouter.post('/add_product', (req: Request, res: Response) => {
 storeRouter.get('/cart', (req: Request, res: Response) => {
   if (req.session.shoppingCart == null)
     req.session.shoppingCart = new ShoppingCart();
+
+  const cart: ShoppingCart = req.session.shoppingCart;
   res.render('cart', {
-    totalCost: ShoppingCart.getTotalCost(req.session.shoppingCart).toDecimal(),
+    items: cart.products.map((entry) => {
+      return {
+        product: entry.product,
+        price: Money.toDecimal(entry.product.price.amount),
+        quantity: entry.quantity,
+        totalPrice: Money.mult(entry.product.price, entry.quantity).toDecimal(),
+      };
+    }),
   });
 });
 
