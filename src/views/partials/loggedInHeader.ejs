@@ -64,8 +64,11 @@
           </svg>
         </a>
       </li>
+      
+        
+
       <div class="col-md-3 text-end">
-        <form class="d-flex" action="logout" method="post">
+        <div class="btn-group mr-2" role="group" aria-label="account">
         <a
           class="btn btn-primary"
           role="button"
@@ -73,10 +76,16 @@
           href="admin"
           >Account</a
         >
-        
-        <button class="btn btn-outline-primary" type="submit">Logout</button>
-        </form>
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="logout">
+          <form class="d-flex" action="logout" method="post">
+            <button class="btn btn-outline-primary" type="submit">Logout</button>
+          </form>
+        </div>
       </div>
+      
+     <!--<div class="col align-self-end ">--> 
+      
       
     </div>
   </div>
