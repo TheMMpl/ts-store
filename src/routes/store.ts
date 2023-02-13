@@ -120,6 +120,33 @@ storeRouter.post('/add_to_cart', async (req: Request, res: Response) => {
   }
 });
 
+storeRouter.post('/delete_from_cart', async (req: Request, res: Response) => {
+  try {
+    if (req.session.shoppingCart == null)
+      req.session.shoppingCart = new ShoppingCart();
+
+    console.log(req.body);
+
+    const id = req.body.id;
+    console.log(id);
+    const cart: ShoppingCart = req.session.shoppingCart;
+    const product = await Product.findProductById(
+      Number.parseInt(id.toString())
+    );
+
+    if (product == null) {
+      res.status(400).send('No product found.');
+      return;
+    }
+
+    ShoppingCart.removeProduct(cart, product, 100000000000000);
+    req.session.shoppingCart = cart;
+    res.redirect('cart');
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 storeRouter.post('/order', async (req: Request, res: Response) => {
   try {
     if (
@@ -139,6 +166,28 @@ storeRouter.post('/order', async (req: Request, res: Response) => {
   } catch (error) {
     res.status(400).send(error);
   }
+});
+
+storeRouter.get('/category', async (req: Request, res: Response) => {
+  res.render('category');
+  // try {
+  //   if (
+  //     !req.session.isLogged ||
+  //     req.session.user == null ||
+  //     req.session.shoppingCart == null ||
+  //     req.session.shoppingCart.products.length == 0
+  //   ) {
+  //     res.redirect('cart');
+  //     return;
+  //   }
+
+  //   const cart: ShoppingCart = req.session.shoppingCart;
+  //   await Order.placeOrder(cart, req.session.user.id);
+  //   req.session.shoppingCart = new ShoppingCart();
+  //   res.redirect('/');
+  // } catch (error) {
+  //   res.status(400).send(error);
+  // }
 });
 
 export default storeRouter;
