@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import type { Request, Response } from 'express';
 
-import User from '../model/user';
+import { User } from '../model';
 import { hash, compare } from 'bcrypt';
 
 const authRouter = Router();
@@ -14,35 +14,30 @@ authRouter.get('/login', (req: Request, res: Response) => {
   res.render('login');
 });
 
-authRouter.post('/login', (req: Request, res: Response) => {
-  if (req.session.isLogged) {
-    res.redirect('/');
-    return;
-  }
+authRouter.post('/login', async (req: Request, res: Response) => {
   try {
+    if (req.session.isLogged) {
+      res.redirect('/');
+      return;
+    }
+
     const email: string = req.body.email;
     const password: string = req.body.password;
 
-    (async () => {
-      const foundUser = await User.findByEmail(email);
-      if (foundUser == null) {
-        res.render('login', {
-          errors: 'Email not found.',
-        });
-        return;
+    const foundUser = await User.findByEmail(email);
+    if (foundUser == null) {
+      res.render('login');
+      return;
+    }
+    compare(password, foundUser.password, (err, same) => {
+      if (same) {
+        req.session.isLogged = true;
+        req.session.user = foundUser;
+        res.redirect('/');
+      } else {
+        res.render('login');
       }
-      compare(password, foundUser.password, (err, same) => {
-        if (same) {
-          req.session.isLogged = true;
-          req.session.user = foundUser;
-          res.redirect('/');
-        } else {
-          res.render('login', {
-            errors: 'Wrong password.',
-          });
-        }
-      });
-    })();
+    });
   } catch (error) {
     res.status(400).send(error);
   }
@@ -56,31 +51,28 @@ authRouter.get('/register', (req: Request, res: Response) => {
   res.render('register');
 });
 
-authRouter.post('/register', (req: Request, res: Response) => {
-  if (req.session.isLogged) {
-    res.redirect('/');
-    return;
-  }
-
+authRouter.post('/register', async (req: Request, res: Response) => {
   try {
-    (async () => {
-      const email: string = req.body.email;
-      const password: string = req.body.password;
-      const foundUser = await User.findByEmail(email);
-      if (foundUser === null) {
-        const hashed = await hash(password, 10);
-        const newUser: Omit<User, 'id'> = {
-          email: email,
-          password: hashed,
-          role: 'user',
-        };
-        req.session.isLogged = true;
-        req.session.user = await User.addUser(newUser);
-        res.redirect('/');
-      } else {
-        res.render('register');
-      }
-    })();
+    if (req.session.isLogged) {
+      res.redirect('/');
+      return;
+    }
+
+    const email: string = req.body.email;
+    const password: string = req.body.password;
+    const foundUser = await User.findByEmail(email);
+    if (foundUser === null) {
+      const hashed = await hash(password, 10);
+      req.session.isLogged = true;
+      req.session.user = await User.addUser({
+        email: email,
+        password: hashed,
+        role: 'user',
+      });
+      res.redirect('/');
+    } else {
+      res.render('register');
+    }
   } catch (error) {
     res.status(400).send(error);
   }
