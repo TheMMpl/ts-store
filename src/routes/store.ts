@@ -5,8 +5,19 @@ import { ShoppingCart, Money, Product, Order } from '../model';
 
 const storeRouter = Router();
 
-storeRouter.get('/', (req: Request, res: Response) => {
-  res.render('index');
+storeRouter.get('/', async (req: Request, res: Response) => {
+  const newestProds = await Product.getLatestProducts(4);
+
+  res.render('index', {
+    latest: newestProds.map((entry) => {
+      return {
+        id: entry.id,
+        img_url: entry.img_url,
+        name: entry.name,
+        price: entry.price,
+      };
+    }),
+  });
 });
 
 storeRouter.post('/add_product', async (req: Request, res: Response) => {
