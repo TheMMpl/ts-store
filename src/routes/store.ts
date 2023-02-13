@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import type { Request, Response } from 'express';
 
-import { ShoppingCart, Money, Product } from '../model';
+import { ShoppingCart, Money, Product, Order } from '../model';
 
 const storeRouter = Router();
 
@@ -128,6 +128,27 @@ storeRouter.get('/test', async (req: Request, res: Response) => {
 storeRouter.get('/browse', async (req: Request, res: Response) => {
   try {
     res.render('browse');
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+storeRouter.post('/order', async (req: Request, res: Response) => {
+  try {
+    if (
+      !req.session.isLogged ||
+      req.session.user == null ||
+      req.session.shoppingCart == null ||
+      req.session.shoppingCart.products.length == 0
+    ) {
+      res.redirect('cart');
+      return;
+    }
+
+    const cart: ShoppingCart = req.session.shoppingCart;
+    await Order.placeOrder(cart, req.session.user.id);
+    req.session.shoppingCart = new ShoppingCart();
+    res.redirect('/');
   } catch (error) {
     res.status(400).send(error);
   }

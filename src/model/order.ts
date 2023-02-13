@@ -69,7 +69,7 @@ export default class Order {
     const client = await pool.connect();
 
     const query =
-      'INSERT INTO orders (user_id, products, price) VALUES ($1, $2, $3) RETURNING (id, order_date, status)';
+      'INSERT INTO orders (user_id, products, price) VALUES ($1, $2, $3) RETURNING id, order_date, status';
 
     const totalPrice = ShoppingCart.getTotalCost(shoppingCart);
     const products: OrderedProductEntry[] = shoppingCart.products.map(
@@ -77,8 +77,10 @@ export default class Order {
         return [entry.product.id, entry.quantity];
       }
     );
-    const result = (await client.query(query, [userId, products, totalPrice]))
-      .rows[0];
+    console.log(products);
+    const result = (
+      await client.query(query, [userId, products, totalPrice.toDecimal()])
+    ).rows[0];
 
     client.release();
     return new Order(
