@@ -38,9 +38,7 @@
               </div>
 
               <div class="d-grid gap-2">
-                <button class="btn btn-primary py-2" type="submit">
-                  Login
-                </button>
+                <button class="btn btn-primary py-2" type="submit">Login</button>
               </div>
             </form>
           </div>
@@ -60,11 +58,11 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      const triggerTabList = document.querySelectorAll('#nav-tab button');
+      const triggerTabList = document.querySelectorAll("#nav-tab button");
       triggerTabList.forEach((triggerEl) => {
         const tabTrigger = new bootstrap.Tab(triggerEl);
 
-        triggerEl.addEventListener('mouseover', (event) => {
+        triggerEl.addEventListener("mouseover", (event) => {
           event.preventDefault();
           tabTrigger.show();
         });

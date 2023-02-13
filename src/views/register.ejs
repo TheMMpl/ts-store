@@ -15,7 +15,11 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           <div class="col"></div>
           <div class="col">
-            <form action="" method="post" oninput='up2.setCustomValidity(up2.value != up.value ? "Passwords do not match." : "")'>
+            <form
+              action=""
+              method="post"
+              oninput='up2.setCustomValidity(up2.value != up.value ? "Passwords do not match." : "")'
+            >
               <div class="form-floating mb-3">
                 <input
                   type="email"
@@ -23,7 +27,8 @@
                   id="floatingInput"
                   name="email"
                   placeholder="name@example.com"
-                  required name="un"
+                  required
+                  name="un"
                 />
                 <label for="floatingInput">Email address</label>
               </div>
@@ -34,7 +39,8 @@
                   id="floatingPassword"
                   name="password"
                   placeholder="Password"
-                  required name="up"
+                  required
+                  name="up"
                 />
                 <label for="floatingPassword">Password</label>
               </div>
@@ -45,14 +51,13 @@
                   id="confirmpassword"
                   name="confirmpassword"
                   placeholder="Password"
-                  required name="up2"
+                  required
+                  name="up2"
                 />
                 <label for="confirmpassword">Confirm Password</label>
               </div>
               <div class="d-grid gap-2">
-                <button class="btn btn-primary py-2" type="submit">
-                  Register
-                </button>
+                <button class="btn btn-primary py-2" type="submit">Register</button>
               </div>
             </form>
           </div>
@@ -66,43 +71,42 @@
       crossorigin="anonymous"
     ></script>
     <script>
-// Check if passwords match
-$("#pwdId, #confirmPassword").on("keyup", function () {
-  if (
-    $("#newPassword").val() != "" &&
-    $("#confirmPassword").val() != "" &&
-    $("#confirmPassword").val() == $("#confirmPassword").val()
-  ) {
-  }
-});
+      // Check if passwords match
+      $("#pwdId, #confirmPassword").on("keyup", function () {
+        if (
+          $("#newPassword").val() != "" &&
+          $("#confirmPassword").val() != "" &&
+          $("#confirmPassword").val() == $("#confirmPassword").val()
+        ) {
+        }
+      });
 
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-  "use strict";
-  window.addEventListener(
-    "load",
-    function () {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName("needs-validation");
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function (form) {
-        form.addEventListener(
-          "submit",
-          function (event) {
-            if (form.checkValidity() === false) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add("was-validated");
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function () {
+        "use strict";
+        window.addEventListener(
+          "load",
+          function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName("needs-validation");
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+              form.addEventListener(
+                "submit",
+                function (event) {
+                  if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                  }
+                  form.classList.add("was-validated");
+                },
+                false
+              );
+            });
           },
           false
         );
-      });
-    },
-    false
-  );
-})();
-
+      })();
     </script>
   </body>
 </html>
