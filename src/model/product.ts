@@ -86,4 +86,57 @@ export default class Product {
     await client.query(query2, [id]);
     client.release();
   }
+
+  static async getProductsFromCategory(
+    categoryId: number,
+    limit?: number
+  ): Promise<Product[]> {
+    const client = await pool.connect();
+
+    let res;
+    if (limit == null) {
+      const query = `
+        SELECT * 
+        FROM products
+        INNER JOIN products_categories ON products_categories.product_id = products.id
+        INNER JOIN categories On categories.id = products_categories.category_id
+        WHERE category.id = $1
+        ORDER BY id DESC`;
+      res = (await client.query(query, [categoryId])).rows;
+    } else {
+      const query = `
+        SELECT * 
+        FROM products
+        INNER JOIN products_categories ON products_categories.product_id = products.id
+        INNER JOIN categories On categories.id = products_categories.category_id
+        WHERE category.id = $1
+        ORDER BY id DESC LIMIT $2`;
+      res = (await client.query(query, [categoryId, limit])).rows;
+    }
+
+    client.release();
+    return res;
+  }
+
+  static async getLatestProducts(limit?: number): Promise<Product[]> {
+    const client = await pool.connect();
+
+    let res;
+    if (limit == null) {
+      const query = `
+        SELECT * 
+        FROM products
+        ORDER BY id DESC`;
+      res = (await client.query(query)).rows;
+    } else {
+      const query = `
+        SELECT * 
+        FROM products
+        ORDER BY id DESC LIMIT $1`;
+      res = (await client.query(query, [limit])).rows;
+    }
+
+    client.release();
+    return res;
+  }
 }
