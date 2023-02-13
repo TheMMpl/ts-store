@@ -35,6 +35,7 @@ export default class Order {
 
     const query = 'SELECT * FROM orders';
     const res = await client.query(query);
+    client.release();
     return res.rows.map((order) => {
       return new Order(
         order.id,
@@ -52,6 +53,7 @@ export default class Order {
 
     const query = 'DELETE FROM orders WHERE id=$1';
     await client.query(query, [id]);
+    client.release();
   }
 
   static async placeOrder(
@@ -63,7 +65,7 @@ export default class Order {
     const query =
       'INSERT INTO orders (user_id, products, price) VALUES ($1, $2, $3) RETURNING (id, order_date, status)';
 
-    const totalPrice = shoppingCart.getTotalCost();
+    const totalPrice = ShoppingCart.getTotalCost(shoppingCart);
     const products: OrderedProductEntry[] = shoppingCart.products.map(
       (entry) => {
         return [entry.product.id, entry.quantity];
@@ -72,6 +74,7 @@ export default class Order {
     const result = (await client.query(query, [userId, products, totalPrice]))
       .rows[0];
 
+    client.release();
     return new Order(
       result.id,
       userId,

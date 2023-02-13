@@ -53,8 +53,11 @@ storeRouter.post('/add_product', (req: Request, res: Response) => {
 });
 
 storeRouter.get('/cart', (req: Request, res: Response) => {
-  console.log(req.session.shoppingCart);
-  res.render('cart');
+  if (req.session.shoppingCart == null)
+    req.session.shoppingCart = new ShoppingCart();
+  res.render('cart', {
+    totalCost: ShoppingCart.getTotalCost(req.session.shoppingCart).toDecimal(),
+  });
 });
 
 storeRouter.get('/product', async (req: Request, res: Response) => {
@@ -80,9 +83,10 @@ storeRouter.get('/product', async (req: Request, res: Response) => {
 });
 
 storeRouter.post('/add_to_cart', async (req: Request, res: Response) => {
-  if (req.session.shoppingCart === undefined) req.session.shoppingCart = [];
-  const id = req.body.id;
   try {
+    if (req.session.shoppingCart == null)
+      req.session.shoppingCart = new ShoppingCart();
+    const id = req.body.id;
     const quantity = Number.parseInt(req.body.quantity.toString());
     const prodId = Number.parseInt(id.toString());
     const product = await Product.findProductById(prodId);
@@ -90,8 +94,7 @@ storeRouter.post('/add_to_cart', async (req: Request, res: Response) => {
       res.status(400).send('No product found.');
       return;
     }
-    req.session.shoppingCart.push([product, quantity]);
-    console.log(req.session);
+    ShoppingCart.addProduct(req.session.shoppingCart, product, quantity);
     res.redirect('product?id=' + id);
   } catch (error) {
     res.status(400).send(error);

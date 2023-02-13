@@ -14,6 +14,7 @@ export default class Category {
 
     const query = 'SELECT * FROM categories';
     const res = await client.query(query);
+    client.release();
     return res.rows.map((category) => {
       return new Category(category.id, category.name);
     });
@@ -26,11 +27,13 @@ export default class Category {
     const query2 = 'DELETE FROM products_categories WHERE category_id=$1';
     await client.query(query1, [id]);
     await client.query(query2, [id]);
+    client.release();
   }
 
   static async addCategory(name: string): Promise<void> {
     const client = await pool.connect();
     const query = 'INSERT INTO categories (name) VALUES ($1)';
     await client.query(query, [name]);
+    client.release();
   }
 }

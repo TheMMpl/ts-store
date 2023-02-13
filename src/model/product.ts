@@ -27,6 +27,7 @@ export default class Product {
 
     const query = 'SELECT * FROM products WHERE id=$1';
     const res = await client.query(query, [id]);
+    client.release();
     if (res.rowCount == 1) {
       const prod = res.rows[0];
       return new Product(
@@ -66,6 +67,7 @@ export default class Product {
       }
     }
 
+    client.release();
     return new Product(
       prodId,
       prod.name,
@@ -82,5 +84,6 @@ export default class Product {
     const query2 = 'DELETE FROM products_categories WHERE product_id=$1';
     await client.query(query1, [id]);
     await client.query(query2, [id]);
+    client.release();
   }
 }

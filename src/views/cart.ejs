@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/bootstrap.css" />
   </head>
   <body>
-    <% if(shoppingCart == null || shoppingCart.nOfItems == 0) { %>
+    <% if(shoppingCart == null || shoppingCart.products.length == 0) { %>
     <h1>the shopping cart is empty</h1>
     <% } else { %>
     <ul>
