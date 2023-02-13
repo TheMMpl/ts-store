@@ -30,11 +30,17 @@ export default class Order {
     this.status = status;
   }
 
-  static async getOrders(): Promise<Order[]> {
+  static async getOrders(userId?: number): Promise<Order[]> {
     const client = await pool.connect();
 
-    const query = 'SELECT * FROM orders';
-    const res = await client.query(query);
+    let res;
+    if (userId == null) {
+      const query = 'SELECT * FROM orders';
+      res = await client.query(query);
+    } else {
+      const query = 'SELECT * FROM orders WHERE user_id=$1';
+      res = await client.query(query, [userId]);
+    }
     client.release();
     return res.rows.map((order) => {
       return new Order(
