@@ -10,86 +10,116 @@
   <body>
     <header>
       <%- include('partials/header') %> 
-    </header>
-    <!-- Related items section
-    
-    Te pewnie się zastąpi jakąś pętlą wyciągającą z tej samej kategorii
-    -->
+      <nav>
+        <div
+          class="nav nav-tabs justify-content-center"
+          id="nav-tab"
+          role="tablist"
+        >
+          <button
+            class="nav-link"
+            id="nav-even"
+            data-bs-toggle="tab"
+            data-bs-target="#nav-even-tab"
+            type="button"
+            role="tab"
+            aria-controls="nav-profile"
+            aria-selected="false"
+          >
+            Even
+          </button>
+          <button
+            class="nav-link"
+            id="nav-odd"
+            data-bs-toggle="tab"
+            data-bs-target="#nav-odd-tab"
+            type="button"
+            role="tab"
+            aria-controls="nav-contact"
+            aria-selected="false"
+          >
+            Odd
+          </button>
+          <!--<button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>Disabled</button>-->
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div
+          class="tab-pane fade"
+          id="nav-even-tab"
+          role="tabpanel"
+          aria-labelledby="nav-even"
+          tabindex="0"
+        >
+          <div class="container py-2">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              <div class="col"></div>
+              <div class="col">
+                <div class="list-group-flush text-center">
+                  <a
+                    href="/category?id=2"
+                    class="list-group-item list-group-item-action list-group-item-secondary"
+                    >Divisible by 2</a
+                  >
 
+                  <a
+                    href="/category?id=4"
+                    class="list-group-item list-group-item-action list-group-item-secondary"
+                    >Divisible by 4</a
+                  >
+                  <a
+                    href="/category?id=6"
+                    class="list-group-item list-group-item-action list-group-item-secondary"
+                    >Divisible by 6</a
+                  >
+                </div>
+              </div>
+              <div class="col"></div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="nav-odd-tab"
+          role="tabpanel"
+          aria-labelledby="nav-odd"
+          tabindex="0"
+        >
+          <div class="container py-2">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+              <div class="col"></div>
+              <div class="col">
+                <div class="list-group-flush text-center">
+                  <a
+                    href="/category?id=3"
+                    class="list-group-item list-group-item-action list-group-item-secondary"
+                    >Divisible by 3</a
+                  >
+
+                  <a
+                    href="/category?id=5"
+                    class="list-group-item list-group-item-action list-group-item-secondary"
+                    >Divisible by 5</a
+                  >
+                  <a
+                    href="/category?id=7"
+                    class="list-group-item list-group-item-action list-group-item-secondary"
+                    >Divisible by 7</a
+                  >
+                </div>
+              </div>
+              <div class="col"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
     
     <section class="py-5 bg-light">
         <div class="container px-4 px-lg-5 mt-5">
-
             <h2 class="fw-bolder mb-4">Search results</h2>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="card h-500 px-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Default checkbox
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Default checkbox
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Default checkbox
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Default checkbox
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Default checkbox
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Default checkbox
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Default checkbox
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Default checkbox
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Default checkbox
-                            </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                              Default checkbox
-                            </label>
-                          </div>
-                    </div>
-                  
-                </div>
-            <div class="col">
-            <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center">
-                <!--tu wsadzi się pętle-->
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <!--podmianka od tąd-->
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Product image-->
@@ -105,10 +135,11 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Product Page</a></div>
                         </div>
                     </div>
                 </div>
+                <!--do tąd-->
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Sale badge-->
@@ -135,7 +166,7 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Product Page</a></div>
                         </div>
                     </div>
                 </div>
@@ -157,7 +188,7 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Product Page</a></div>
                         </div>
                     </div>
                 </div>
@@ -184,7 +215,7 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Product Page</a></div>
                         </div>
                     </div>
                 </div>
@@ -192,6 +223,26 @@
         </div>
         </div>
     </section>
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"
+  ></script>
+    <script>
+      const triggerTabList = document.querySelectorAll('#nav-tab button');
+      triggerTabList.forEach((triggerEl) => {
+        const tabTrigger = new bootstrap.Tab(triggerEl);
+
+        triggerEl.addEventListener('mouseover', (event) => {
+          event.preventDefault();
+          tabTrigger.show();
+        });
+        // triggerEl.addEventListener('mouseleave', event => {
+        //     event.preventDefault()
+        //     tabTrigger.hide()
+        //     })
+      });
+    </script>
     <footer class="py-5 bg-dark">
         <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Number Store 2023</p></div>
     </footer>
