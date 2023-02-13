@@ -3,11 +3,12 @@ import type { Request, Response } from 'express';
 
 import Product from '../model/product';
 import Money from '../model/money';
+import ShoppingCart from '../model/shoppingCart';
 
 const storeRouter = Router();
 
 storeRouter.get('/', (req: Request, res: Response) => {
-  res.render('index.ejs');
+  res.render('index');
 });
 
 storeRouter.post('/add_product', (req: Request, res: Response) => {
@@ -51,14 +52,60 @@ storeRouter.post('/add_product', (req: Request, res: Response) => {
   }
 });
 
-storeRouter.get('/order', (req: Request, res: Response) => {
+storeRouter.get('/cart', (req: Request, res: Response) => {
+  console.log(req.session.shoppingCart);
+  res.render('cart');
+});
+
+storeRouter.get('/product', async (req: Request, res: Response) => {
   try {
-    (async () => {
-      // Order.placeOrder()
-    })();
+    const id = req.query.id;
+    if (id == null) {
+      res.status(400).send('Invalid product id.');
+      return;
+    }
+    const prodId = Number.parseInt(id.toString());
+    const product = await Product.findProductById(prodId);
+    if (product == null) {
+      res.status(400).send('No product found.');
+      return;
+    }
+
+    res.render('product', {
+      product: product,
+    });
   } catch (error) {
     res.status(400).send(error);
   }
 });
+
+storeRouter.post('/add_to_cart', async (req: Request, res: Response) => {
+  if (req.session.shoppingCart === undefined) req.session.shoppingCart = [];
+  const id = req.body.id;
+  try {
+    const quantity = Number.parseInt(req.body.quantity.toString());
+    const prodId = Number.parseInt(id.toString());
+    const product = await Product.findProductById(prodId);
+    if (product == null) {
+      res.status(400).send('No product found.');
+      return;
+    }
+    req.session.shoppingCart.push([product, quantity]);
+    console.log(req.session);
+    res.redirect('product?id=' + id);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+// storeRouter.get('/order', (req: Request, res: Response) => {
+//   try {
+//     (async () => {
+//       // Order.placeOrder()
+//     })();
+//   } catch (error) {
+//     res.status(400).send(error);
+//   }
+// });
 
 export default storeRouter;

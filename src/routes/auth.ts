@@ -88,7 +88,7 @@ authRouter.post('/register', (req: Request, res: Response) => {
 
 authRouter.all('/logout', (req: Request, res: Response) => {
   req.session.isLogged = false;
-  req.session.user = null;
+  req.session.user = undefined;
 
   res.redirect('/');
 });

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+  </head>
+  <body>
+    <% if(shoppingCart == null || shoppingCart.nOfItems == 0) { %>
+    <h1>the shopping cart is empty</h1>
+    <% } else { %>
+    <ul>
+      <% shoppingCart.products.forEach(function(entry) { %>
+      <li>Name: <%= entry.product.name %>, quantity: <%= entry.quantity %></li>
+      <% }); %>
+    </ul>
+    <% } %>
+  </body>
+</html>

@@ -52,4 +52,8 @@ export default class ShoppingCart {
     });
     return sum;
   }
+
+  nOfItems(): number {
+    return this.products.length;
+  }
 }
