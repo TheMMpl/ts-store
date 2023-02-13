@@ -13,6 +13,10 @@ export default class Money {
     return Number.parseFloat((this.amount / 100).toFixed(2));
   }
 
+  static toDecimal(val: number): number {
+    return Number.parseFloat((val / 100).toFixed(2));
+  }
+
   static add(lhs: Money, rhs: Money): Money {
     return new Money(lhs.amount + rhs.amount);
   }

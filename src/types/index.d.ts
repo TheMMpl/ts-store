@@ -1,5 +1,4 @@
-import User from './model/user';
-import ShoppingCart from './model/shoppingCart';
+import { ShoppingCart, User } from '../model';
 
 import { SessionData } from 'express-session';
 

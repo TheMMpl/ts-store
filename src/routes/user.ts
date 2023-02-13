@@ -1,52 +1,43 @@
 import { Router } from 'express';
 import type { Request, Response } from 'express';
 
-import Category from '../model/category';
+import { Category } from '../model';
 
 const userRouter = Router();
 
 userRouter.get('/profile', (req: Request, res: Response) => {
   try {
-    (async () => {
-      if (!req.session.isLogged || req.session.user == null) {
-        res.redirect('/login');
-        return;
-      }
-      const categoryData =
-        req.session.user.role === 'admin'
-          ? await Category.getCategories()
-          : null;
-      res.render('profile', {
-        user: req.session.user,
-        categories: categoryData,
-      });
-    })();
+    if (!req.session.isLogged || req.session.user == null) {
+      res.redirect('/login');
+      return;
+    }
+
+    if (req.session.user.role === 'admin') {
+      res.redirect('/admin');
+      return;
+    }
+
+    res.render('profile');
   } catch (error) {
     res.status(400).send(error);
   }
 });
 
-// userRouter.get('/admin', (req: Request, res: Response) => {
-//   res.render('admin');
-// });
-
-//skopiowałem to z profile
-userRouter.get('/admin', (req: Request, res: Response) => {
+userRouter.get('/admin', async (req: Request, res: Response) => {
   try {
-    (async () => {
-      if (!req.session.isLogged || req.session.user == null) {
-        res.redirect('/login');
-        return;
-      }
-      const categoryData =
-        req.session.user.role === 'admin'
-          ? await Category.getCategories()
-          : null;
-      res.render('admin', {
-        user: req.session.user,
-        categories: categoryData,
-      });
-    })();
+    if (!req.session.isLogged || req.session.user == null) {
+      res.redirect('/login');
+      return;
+    }
+
+    if (req.session.user.role === 'user') {
+      res.redirect('/profile');
+      return;
+    }
+
+    res.render('admin', {
+      categories: await Category.getCategories(),
+    });
   } catch (error) {
     res.status(400).send(error);
   }

@@ -1,9 +1,7 @@
 import { Router } from 'express';
 import type { Request, Response } from 'express';
 
-import Product from '../model/product';
-import Money from '../model/money';
-import ShoppingCart from '../model/shoppingCart';
+import { ShoppingCart, Money, Product } from '../model';
 
 const storeRouter = Router();
 
@@ -11,42 +9,40 @@ storeRouter.get('/', (req: Request, res: Response) => {
   res.render('index');
 });
 
-storeRouter.post('/add_product', (req: Request, res: Response) => {
+storeRouter.post('/add_product', async (req: Request, res: Response) => {
   try {
-    (async () => {
-      if (
-        !req.session.isLogged ||
-        req.session.user == null ||
-        req.session.user.role != 'admin'
-      ) {
-        res.redirect('/');
-        return;
-      }
-      const prodName: string = req.body.name;
-      const prodDesc: string = req.body.description;
-      const prodPrice: Money = Money.ofDecimal(req.body.price);
-      const prodCategory: number[] = req.body.categories;
-      if (
-        !(
-          prodName &&
-          prodDesc &&
-          prodPrice.amount > 0 &&
-          prodCategory &&
-          prodCategory.length > 0
-        )
-      ) {
-        res.redirect('/profile');
-        return;
-      }
-      Product.addProduct({
-        name: prodName,
-        description: prodDesc,
-        price: prodPrice,
-        img_url: 'assets/product_no_image.png',
-        categories: prodCategory,
-      });
-      res.redirect('/profile');
-    })();
+    if (
+      !req.session.isLogged ||
+      req.session.user == null ||
+      req.session.user.role !== 'admin'
+    ) {
+      res.redirect('/');
+      return;
+    }
+    const prodName: string = req.body.name;
+    const prodDesc: string = req.body.description;
+    const prodPrice: Money = Money.ofDecimal(req.body.price);
+    const prodCategory: number[] = req.body.categories;
+    if (
+      !(
+        prodName &&
+        prodDesc &&
+        prodPrice.amount > 0 &&
+        prodCategory &&
+        prodCategory.length > 0
+      )
+    ) {
+      res.redirect('/admin');
+      return;
+    }
+    Product.addProduct({
+      name: prodName,
+      description: prodDesc,
+      price: prodPrice,
+      img_url: 'assets/product_no_image.png',
+      categories: prodCategory,
+    });
+    res.redirect('/admin');
   } catch (error) {
     res.status(400).send(error);
   }
@@ -55,8 +51,20 @@ storeRouter.post('/add_product', (req: Request, res: Response) => {
 storeRouter.get('/cart', (req: Request, res: Response) => {
   if (req.session.shoppingCart == null)
     req.session.shoppingCart = new ShoppingCart();
+
+  const cart: ShoppingCart = req.session.shoppingCart;
+  const items = cart.products.map((entry) => {
+    return {
+      product: entry.product,
+      price: Money.toDecimal(entry.product.price.amount),
+      quantity: entry.quantity,
+      totalPrice: Money.mult(entry.product.price, entry.quantity).toDecimal(),
+    };
+  });
+
   res.render('cart', {
-    totalCost: ShoppingCart.getTotalCost(req.session.shoppingCart).toDecimal(),
+    items: items,
+    totalPrice: ShoppingCart.getTotalCost(cart).toDecimal(),
   });
 });
 
@@ -124,15 +132,5 @@ storeRouter.get('/browse', async (req: Request, res: Response) => {
     res.status(400).send(error);
   }
 });
-
-// storeRouter.get('/order', (req: Request, res: Response) => {
-//   try {
-//     (async () => {
-//       // Order.placeOrder()
-//     })();
-//   } catch (error) {
-//     res.status(400).send(error);
-//   }
-// });
 
 export default storeRouter;
