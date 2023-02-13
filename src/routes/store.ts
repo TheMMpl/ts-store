@@ -169,25 +169,19 @@ storeRouter.post('/order', async (req: Request, res: Response) => {
 });
 
 storeRouter.get('/category', async (req: Request, res: Response) => {
-  res.render('category');
-  // try {
-  //   if (
-  //     !req.session.isLogged ||
-  //     req.session.user == null ||
-  //     req.session.shoppingCart == null ||
-  //     req.session.shoppingCart.products.length == 0
-  //   ) {
-  //     res.redirect('cart');
-  //     return;
-  //   }
-
-  //   const cart: ShoppingCart = req.session.shoppingCart;
-  //   await Order.placeOrder(cart, req.session.user.id);
-  //   req.session.shoppingCart = new ShoppingCart();
-  //   res.redirect('/');
-  // } catch (error) {
-  //   res.status(400).send(error);
-  // }
+  try {
+    const id = req.query.id;
+    if (id == null) {
+      res.status(400).send('Invalid category id.');
+      return;
+    }
+    const categoryId = Number.parseInt(id.toString());
+    res.render('category', {
+      items: await Product.getProductsFromCategory(categoryId),
+    });
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 export default storeRouter;

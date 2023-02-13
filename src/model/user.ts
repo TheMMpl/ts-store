@@ -31,6 +31,17 @@ export default class User {
     }
   }
 
+  static async getUsers(): Promise<User[]> {
+    const client = await pool.connect();
+
+    const query = 'SELECT * FROM users';
+    const res = await client.query(query);
+    client.release();
+    return res.rows.map((user) => {
+      return new User(user.id, user.email, user.password, user.role);
+    });
+  }
+
   static async addUser(user: Omit<User, 'id'>): Promise<User> {
     const client = await pool.connect();
 
