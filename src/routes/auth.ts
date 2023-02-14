@@ -60,8 +60,9 @@ authRouter.post('/register', async (req: Request, res: Response) => {
 
     const email: string = req.body.email;
     const password: string = req.body.password;
+    const confirmPassword: string = req.body.confirmPassword;
     const foundUser = await User.findByEmail(email);
-    if (foundUser === null) {
+    if (foundUser === null && password === confirmPassword) {
       const hashed = await hash(password, 10);
       req.session.isLogged = true;
       req.session.user = await User.addUser({
