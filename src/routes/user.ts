@@ -21,7 +21,9 @@ userRouter.get('/profile', async (req: Request, res: Response) => {
     let prodNames: { [key: number]: string } = {};
     for (const order of orders) {
       for (const prod of order.products) {
-        prodNames[prod[0]] = (await Product.findProductById(prod[0]))!.name;
+        const curProd = await Product.findProductById(prod[0]);
+        if (curProd == null) prodNames[prod[0]] = 'Deleted product';
+        else prodNames[prod[0]] = curProd.name;
       }
     }
     res.render('profile', {
@@ -49,7 +51,9 @@ userRouter.get('/admin', async (req: Request, res: Response) => {
     let prodNames: { [key: number]: string } = {};
     for (const order of orders) {
       for (const prod of order.products) {
-        prodNames[prod[0]] = (await Product.findProductById(prod[0]))!.name;
+        const curProd = await Product.findProductById(prod[0]);
+        if (curProd == null) prodNames[prod[0]] = 'Deleted product';
+        else prodNames[prod[0]] = curProd.name;
       }
     }
     res.render('admin', {
