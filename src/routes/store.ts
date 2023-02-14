@@ -309,4 +309,25 @@ storeRouter.post('/edit_product', async (req: Request, res: Response) => {
   }
 });
 
+storeRouter.get('/search', async (req: Request, res: Response) => {
+  try {
+    const query = req.query.query;
+    if (query == null) {
+      res.status(400).send('Invalid query.');
+      return;
+    }
+
+    const products = await Product.findProductsByQuery(query.toString());
+    if (products == null) {
+      res.redirect('/');
+      return;
+    }
+    res.render('search', {
+      items: products,
+    });
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 export default storeRouter;

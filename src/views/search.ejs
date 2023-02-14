@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main page</title>
+    <title>Search results</title>
     <link rel="stylesheet" href="/css/bootstrap.css" />
   </head>
   <body>
@@ -17,22 +17,10 @@
           role="tablist"
         >
           <button
-            class="nav-link active"
-            id="nav-home-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#nav-home"
-            type="button"
-            role="tab"
-            aria-controls="nav-home"
-            aria-selected="false"
-          >
-            New
-          </button>
-          <button
             class="nav-link"
-            id="nav-profile-tab"
+            id="nav-even"
             data-bs-toggle="tab"
-            data-bs-target="#nav-profile"
+            data-bs-target="#nav-even-tab"
             type="button"
             role="tab"
             aria-controls="nav-profile"
@@ -42,9 +30,9 @@
           </button>
           <button
             class="nav-link"
-            id="nav-contact-tab"
+            id="nav-odd"
             data-bs-toggle="tab"
-            data-bs-target="#nav-contact"
+            data-bs-target="#nav-odd-tab"
             type="button"
             role="tab"
             aria-controls="nav-contact"
@@ -57,37 +45,13 @@
       </nav>
       <div class="tab-content" id="nav-tabContent">
         <div
-          class="tab-pane fade show active"
-          id="nav-home"
-          role="tabpanel"
-          aria-labelledby="nav-home-tab"
-          tabindex="0"
-        >
-          <section class="py-5 text-center container">
-            <div class="row py-lg-5">
-              <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Number Seven</h1>
-                <p class="lead text-muted">
-                  Did you know it is the only prime number preceding a cube? Now
-                  only $7.77!
-                </p>
-                <p>
-                  <a href="/product?id=5" class="btn btn-secondary my-2"
-                    >See product page</a
-                  >
-                </p>
-              </div>
-            </div>
-          </section>
-        </div>
-        <div
           class="tab-pane fade"
-          id="nav-profile"
+          id="nav-even-tab"
           role="tabpanel"
-          aria-labelledby="nav-profile-tab"
+          aria-labelledby="nav-even"
           tabindex="0"
         >
-          <div class="container py-5">
+          <div class="container py-2">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
               <div class="col"></div>
               <div class="col">
@@ -116,12 +80,12 @@
         </div>
         <div
           class="tab-pane fade"
-          id="nav-contact"
+          id="nav-odd-tab"
           role="tabpanel"
-          aria-labelledby="nav-contact-tab"
+          aria-labelledby="nav-odd"
           tabindex="0"
         >
-          <div class="container py-5">
+          <div class="container py-2">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
               <div class="col"></div>
               <div class="col">
@@ -148,70 +112,51 @@
             </div>
           </div>
         </div>
-        <div
-          class="tab-pane fade"
-          id="nav-disabled"
-          role="tabpanel"
-          aria-labelledby="nav-disabled-tab"
-          tabindex="0"
-        >
-          ...
-        </div>
       </div>
     </header>
 
-    <main>
-      <section class="py-5 bg-light">
-        <div class="container px-4 px-lg-5 mt-5">
-          <h2 class="fw-bolder mb-4">Newest products</h2>
-          <div
-            class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
-          >
-            <% latest.forEach(function(entry) { %>
-
-            <!--tu wsadzi się pętle-->
-            <div class="col mb-5">
-              <div class="card h-100">
-                <!-- Product image-->
-                <img
-                  class="card-img-top"
-                  src="/<%= entry.img_url %>"
-                  alt="..."
-                />
-                <!-- Product details-->
-                <div class="card-body p-4">
-                  <div class="text-center">
-                    <!-- Product name-->
-                    <h5 class="fw-bolder"><%= entry.name %></h5>
-                    <!-- Product price-->
-                    <%= entry.price %>
-                  </div>
+    <section class="py-5 bg-light">
+      <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder mb-4">Found products:</h2>
+        <div
+          class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+        >
+          <!--podmianka od tąd-->
+          <% items.forEach(function(entry) { %>
+          <div class="col mb-5">
+            <div class="card h-100">
+              <!-- Product image-->
+              <img class="card-img-top" src="/<%= entry.img_url %>" alt="..." />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder"><%= entry.name %></h5>
+                  <!-- Product price-->
+                  <%= entry.price %>
                 </div>
-                <!-- Product actions-->
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                  <div class="text-center">
-                    <a
-                      class="btn btn-outline-dark mt-auto"
-                      href="/product?id=<%= entry.id %>"
-                      >Product page</a
-                    >
-                  </div>
+              </div>
+              <!-- Product actions-->
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  <a
+                    class="btn btn-outline-dark mt-auto"
+                    href="/product?id=<%= entry.id %>"
+                    >Product Page</a
+                  >
                 </div>
               </div>
             </div>
-
-            <% }); %>
           </div>
+          <% }); %>
         </div>
-      </section>
-    </main>
-
+      </div>
+    </section>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
-
     <script>
       const triggerTabList = document.querySelectorAll('#nav-tab button');
       triggerTabList.forEach((triggerEl) => {
@@ -227,39 +172,6 @@
         //     })
       });
     </script>
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", function(){
-// make it as accordion for smaller screens
-	document.querySelectorAll('.nav .nav-link').forEach(function(everyitem){
-
-		everyitem.addEventListener('mouseover', function(e){
-
-			let el_link = this.querySelector('a[data-bs-toggle]');
-
-			if(el_link != null){
-				let nextEl = el_link.nextElementSibling;
-				el_link.classList.add('show');
-				nextEl.classList.add('show');
-			}
-
-		});
-		everyitem.addEventListener('mouseleave', function(e){
-			let el_link = this.querySelector('a[data-bs-toggle]');
-
-			if(el_link != null){
-				let nextEl = el_link.nextElementSibling;
-				el_link.classList.remove('show');
-				nextEl.classList.remove('show');
-			}
-
-
-		})
-	});
-
-// end if innerWidth
-}); 
-      </script>-->
-
     <footer class="py-5 bg-dark">
       <div class="container">
         <p class="m-0 text-center text-white">

@@ -153,4 +153,14 @@ export default class Product {
 
     client.release();
   }
+
+  static async findProductsByQuery(query: string): Promise<Product[]> {
+    const client = await pool.connect();
+    const sqlQuery = `SELECT * FROM products WHERE name LIKE $1`;
+
+    const res = await client.query(sqlQuery, ['%' + query + '%']);
+    client.release();
+
+    return res.rows;
+  }
 }
