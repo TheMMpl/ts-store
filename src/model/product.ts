@@ -99,8 +99,7 @@ export default class Product {
         SELECT * 
         FROM products
         INNER JOIN products_categories ON products_categories.product_id = products.id
-        INNER JOIN categories On categories.id = products_categories.category_id
-        WHERE category.id = $1
+        WHERE products_categories.category_id = $1
         ORDER BY id DESC`;
       res = (await client.query(query, [categoryId])).rows;
     } else {
@@ -108,8 +107,7 @@ export default class Product {
         SELECT * 
         FROM products
         INNER JOIN products_categories ON products_categories.product_id = products.id
-        INNER JOIN categories On categories.id = products_categories.category_id
-        WHERE category.id = $1
+        WHERE products_categories.category_id = $1
         ORDER BY id DESC LIMIT $2`;
       res = (await client.query(query, [categoryId, limit])).rows;
     }

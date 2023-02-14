@@ -20,6 +20,20 @@ export default class Category {
     });
   }
 
+  static async findCategoryById(id: number): Promise<Category | null> {
+    const client = await pool.connect();
+
+    const query = 'SELECT * FROM categories WHERE id=$1';
+    const res = await client.query(query, [id]);
+    client.release();
+    if (res.rowCount == 1) {
+      const category = res.rows[0];
+      return new Category(category.id, category.name);
+    } else {
+      return null;
+    }
+  }
+
   static async removeCategory(id: number): Promise<void> {
     const client = await pool.connect();
 

@@ -36,6 +36,10 @@ INSERT INTO products (name, price, description, img_url) VALUES ('Product 2', '1
 INSERT INTO products (name, price, description, img_url) VALUES ('Product 3', '11.01', 'Description of product 3', 'assets/product_no_image.png');
 INSERT INTO products (name, price, description, img_url) VALUES ('Product 4', '14.11', 'Description of product 4', 'assets/product_no_image.png');
 INSERT INTO products (name, price, description, img_url) VALUES ('Number 7', '7.77', 'Did you know it is the only prime number preceding a cube? Now only $7.77!', 'assets/product_no_image.png');
+INSERT INTO products (name, price, description, img_url) VALUES ('Number 8', '14.11', 'Desc of number 8', 'assets/product_no_image.png');
+INSERT INTO products (name, price, description, img_url) VALUES ('Number 9', '14.11', 'Desc of number 9', 'assets/product_no_image.png');
+INSERT INTO products (name, price, description, img_url) VALUES ('Number 10', '14.11', 'Desc of number 10', 'assets/product_no_image.png');
+INSERT INTO products (name, price, description, img_url) VALUES ('Number 11', '14.11', 'Desc of number 11', 'assets/product_no_image.png');
 
 
 CREATE TABLE categories (
@@ -67,6 +71,11 @@ INSERT INTO products_categories (product_id, category_id) VALUES (1, 2);
 INSERT INTO products_categories (product_id, category_id) VALUES (1, 4);
 INSERT INTO products_categories (product_id, category_id) VALUES (2, 3);
 INSERT INTO products_categories (product_id, category_id) VALUES (3, 2);
+INSERT INTO products_categories (product_id, category_id) VALUES (5, 2);
+INSERT INTO products_categories (product_id, category_id) VALUES (6, 2);
+INSERT INTO products_categories (product_id, category_id) VALUES (7, 2);
+INSERT INTO products_categories (product_id, category_id) VALUES (8, 2);
+INSERT INTO products_categories (product_id, category_id) VALUES (9, 2);
 
 
 CREATE TABLE orders (

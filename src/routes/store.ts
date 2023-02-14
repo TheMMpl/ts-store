@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import type { Request, Response } from 'express';
 
-import { ShoppingCart, Money, Product, Order } from '../model';
+import { ShoppingCart, Money, Product, Order, Category } from '../model';
 
 const storeRouter = Router();
 
@@ -30,7 +30,6 @@ storeRouter.post('/add_product', async (req: Request, res: Response) => {
       res.redirect('/');
       return;
     }
-    console.log(req.body);
     const prodName: string = req.body.name;
     const prodDesc: string = req.body.description;
     const prodPrice: Money = Money.ofDecimal(req.body.price);
@@ -47,11 +46,22 @@ storeRouter.post('/add_product', async (req: Request, res: Response) => {
       res.redirect('/admin');
       return;
     }
+
+    // console.log(req.files);
+    // const files = req.files;
+    let img_url = 'assets/product_no_image.png';
+    // if (files != null) {
+    //   const image = files.file as UploadedFile;
+    //   if (/^image/.test(image.mimetype)) return res.sendStatus(400);
+    //   image.mv(__dirname + '/static/uploads/' + image.name);
+    //   img_url = 'uploads/' + image.name;
+    // }
+
     Product.addProduct({
       name: prodName,
       description: prodDesc,
       price: prodPrice,
-      img_url: 'assets/product_no_image.png',
+      img_url: img_url,
       categories: prodCategory,
     });
     res.redirect('/admin');
@@ -176,9 +186,17 @@ storeRouter.get('/category', async (req: Request, res: Response) => {
       res.status(400).send('Invalid category id.');
       return;
     }
-    const categoryId = Number.parseInt(id.toString());
+
+    const category = await Category.findCategoryById(
+      Number.parseInt(id.toString())
+    );
+    if (category == null) {
+      res.redirect('/');
+      return;
+    }
     res.render('category', {
-      items: await Product.getProductsFromCategory(categoryId),
+      items: await Product.getProductsFromCategory(category.id),
+      categoryName: category.name,
     });
   } catch (error) {
     res.status(400).send(error);
