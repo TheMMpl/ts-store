@@ -33,8 +33,9 @@ CREATE TABLE products (
 
 INSERT INTO products (name, price, description, img_url) VALUES ('Product 1', '11.11', 'Description of product 1', 'assets/product_no_image.png');
 INSERT INTO products (name, price, description, img_url) VALUES ('Product 2', '12.99', 'Description of product 2', 'assets/product_no_image.png');
-INSERT INTO products (name, price, description, img_url) VALUES ('Product 3', '11', 'Description of product 3', 'assets/product_no_image.png');
+INSERT INTO products (name, price, description, img_url) VALUES ('Product 3', '11.01', 'Description of product 3', 'assets/product_no_image.png');
 INSERT INTO products (name, price, description, img_url) VALUES ('Product 4', '14.11', 'Description of product 4', 'assets/product_no_image.png');
+INSERT INTO products (name, price, description, img_url) VALUES ('Number 7', '7.77', 'Did you know it is the only prime number preceding a cube? Now only $7.77!', 'assets/product_no_image.png');
 
 
 CREATE TABLE categories (
@@ -43,10 +44,13 @@ CREATE TABLE categories (
 );
 
 
-INSERT INTO categories (name) VALUES ('Category 1');
-INSERT INTO categories (name) VALUES ('Category 2');
-INSERT INTO categories (name) VALUES ('Category 3');
-INSERT INTO categories (name) VALUES ('Category 4');
+INSERT INTO categories (name) VALUES ('Divisible by 1');
+INSERT INTO categories (name) VALUES ('Divisible by 2');
+INSERT INTO categories (name) VALUES ('Divisible by 3');
+INSERT INTO categories (name) VALUES ('Divisible by 4');
+INSERT INTO categories (name) VALUES ('Divisible by 5');
+INSERT INTO categories (name) VALUES ('Divisible by 6');
+INSERT INTO categories (name) VALUES ('Divisible by 7');
 
 
 CREATE TABLE products_categories (

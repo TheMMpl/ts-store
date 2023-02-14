@@ -30,10 +30,11 @@ storeRouter.post('/add_product', async (req: Request, res: Response) => {
       res.redirect('/');
       return;
     }
+    console.log(req.body);
     const prodName: string = req.body.name;
     const prodDesc: string = req.body.description;
     const prodPrice: Money = Money.ofDecimal(req.body.price);
-    const prodCategory: number[] = req.body.categories;
+    const prodCategory: number[] = req.body.category;
     if (
       !(
         prodName &&

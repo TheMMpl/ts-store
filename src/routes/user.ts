@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import type { Request, Response } from 'express';
 
-import { Category, Order, User } from '../model';
+import { Order, Product, User } from '../model';
 
 const userRouter = Router();
 
@@ -17,8 +17,16 @@ userRouter.get('/profile', async (req: Request, res: Response) => {
       return;
     }
 
+    const orders = await Order.getOrders(req.session.user.id);
+    let prodNames: { [key: number]: string } = {};
+    for (const order of orders) {
+      for (const prod of order.products) {
+        prodNames[prod[0]] = (await Product.findProductById(prod[0]))!.name;
+      }
+    }
     res.render('profile', {
-      orders: await Order.getOrders(req.session.user.id),
+      orders: orders,
+      names: prodNames,
     });
   } catch (error) {
     res.status(400).send(error);
@@ -37,9 +45,17 @@ userRouter.get('/admin', async (req: Request, res: Response) => {
       return;
     }
 
+    const orders = await Order.getOrders();
+    let prodNames: { [key: number]: string } = {};
+    for (const order of orders) {
+      for (const prod of order.products) {
+        prodNames[prod[0]] = (await Product.findProductById(prod[0]))!.name;
+      }
+    }
     res.render('admin', {
-      orders: await Order.getOrders(),
+      orders: orders,
       users: await User.getUsers(),
+      names: prodNames,
     });
   } catch (error) {
     res.status(400).send(error);

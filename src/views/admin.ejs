@@ -12,7 +12,11 @@
       <%- include('partials/header') %>
 
       <nav>
-        <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+        <div
+          class="nav nav-tabs justify-content-center"
+          id="nav-tab"
+          role="tablist"
+        >
           <button
             class="nav-link active"
             id="nav-account"
@@ -94,7 +98,13 @@
             </div>
           </div>
         </div>
-        <div class="tab-pane fade" id="nav-orders-tab" role="tabpanel" aria-labelledby="nav-orders" tabindex="0">
+        <div
+          class="tab-pane fade"
+          id="nav-orders-tab"
+          role="tabpanel"
+          aria-labelledby="nav-orders"
+          tabindex="0"
+        >
           <div class="container py-5">
             <div class="table-responsive">
               <table class="table table-striped table-sm">
@@ -121,7 +131,7 @@
                         <tbody>
                           <% entry.products.forEach(function(productEntry) { %>
                           <tr>
-                            <td>Product#<%= productEntry[0] %></td>
+                            <td><%= names[productEntry[0]] %></td>
                             <td><%= productEntry[1] %></td>
                           </tr>
                           <% }); %>
@@ -138,14 +148,31 @@
           </div>
         </div>
 
-        <div class="tab-pane fade" id="nav-stock-tab" role="tabpanel" aria-labelledby="nav-stock" tabindex="0">
+        <div
+          class="tab-pane fade"
+          id="nav-stock-tab"
+          role="tabpanel"
+          aria-labelledby="nav-stock"
+          tabindex="0"
+        >
           <div class="container py-5">
             <form action="add_product" method="post">
               <div class="input-group mb-3">
-                <label for="ProductName" class="form-label">Add a new Product</label>
+                <label for="ProductName" class="form-label"
+                  >Add a new Product</label
+                >
                 <div class="input-group">
-                  <label class="input-group-text" for="inputGroupSelect01">Product name</label>
-                  <input type="text" class="form-control" placeholder="name" id="ProductName" aria-label="Username" />
+                  <label class="input-group-text" for="inputGroupSelect01"
+                    >Product name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Name"
+                    id="ProductName"
+                    aria-label="Username"
+                    name="name"
+                  />
                   <!--<span class="input-group-text">Category</span>-->
                   <button
                     class="btn btn-outline-secondary"
@@ -160,35 +187,88 @@
                 </div>
                 <div class="collapse" id="collapseExample">
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="category[]" value="2" />
-                    <label class="form-check-label" for="inlineCheckbox2">2</label>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="inlineCheckbox2"
+                      name="category[]"
+                      value="2"
+                    />
+                    <label class="form-check-label" for="inlineCheckbox2"
+                      >2</label
+                    >
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="category[]" value="3" />
-                    <label class="form-check-label" for="inlineCheckbox1">3</label>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="inlineCheckbox1"
+                      name="category[]"
+                      value="3"
+                    />
+                    <label class="form-check-label" for="inlineCheckbox1"
+                      >3</label
+                    >
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="category[]" value="4" />
-                    <label class="form-check-label" for="inlineCheckbox2">4</label>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="inlineCheckbox2"
+                      name="category[]"
+                      value="4"
+                    />
+                    <label class="form-check-label" for="inlineCheckbox2"
+                      >4</label
+                    >
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="category[]" value="5" />
-                    <label class="form-check-label" for="inlineCheckbox1">5</label>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="inlineCheckbox1"
+                      name="category[]"
+                      value="5"
+                    />
+                    <label class="form-check-label" for="inlineCheckbox1"
+                      >5</label
+                    >
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="category[]" value="6" />
-                    <label class="form-check-label" for="inlineCheckbox2">6</label>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="inlineCheckbox2"
+                      name="category[]"
+                      value="6"
+                    />
+                    <label class="form-check-label" for="inlineCheckbox2"
+                      >6</label
+                    >
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="category[]" value="7" />
-                    <label class="form-check-label" for="inlineCheckbox1">7</label>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="inlineCheckbox1"
+                      name="category[]"
+                      value="7"
+                    />
+                    <label class="form-check-label" for="inlineCheckbox1"
+                      >7</label
+                    >
                   </div>
                 </div>
               </div>
 
               <div class="input-group mb-3">
                 <span class="input-group-text">Description</span>
-                <textarea class="form-control" aria-label="With textarea" style="height: 100px"></textarea>
+                <textarea
+                  class="form-control"
+                  aria-label="With textarea"
+                  style="height: 100px"
+                  name="description"
+                ></textarea>
               </div>
               <div class="input-group mb-3">
                 <input
@@ -203,9 +283,17 @@
                   type="text"
                   class="form-control"
                   placeholder="Price"
-                  aria-label="Amount (to the nearest dollar)"
+                  aria-label="Price"
+                  ,
+                  name="price"
                 />
-                <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon04">Add product</button>
+                <button
+                  class="btn btn-outline-secondary"
+                  type="submit"
+                  id="inputGroupFileAddon04"
+                >
+                  Add product
+                </button>
               </div>
             </form>
           </div>
@@ -219,11 +307,11 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      const triggerTabList = document.querySelectorAll("#nav-tab button");
+      const triggerTabList = document.querySelectorAll('#nav-tab button');
       triggerTabList.forEach((triggerEl) => {
         const tabTrigger = new bootstrap.Tab(triggerEl);
 
-        triggerEl.addEventListener("mouseover", (event) => {
+        triggerEl.addEventListener('mouseover', (event) => {
           event.preventDefault();
           tabTrigger.show();
         });

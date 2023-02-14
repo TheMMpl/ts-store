@@ -11,7 +11,11 @@
     <header>
       <%- include('partials/header') %>
       <nav>
-        <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+        <div
+          class="nav nav-tabs justify-content-center"
+          id="nav-tab"
+          role="tablist"
+        >
           <button
             class="nav-link active"
             id="nav-home-tab"
@@ -63,28 +67,45 @@
             <div class="row py-lg-5">
               <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light">Number Seven</h1>
-                <p class="lead text-muted">Did you know it is the only prime number preceding a cube? Now only $7!</p>
+                <p class="lead text-muted">
+                  Did you know it is the only prime number preceding a cube? Now
+                  only $7.77!
+                </p>
                 <p>
-                  <a href="#" class="btn btn-secondary my-2">See product page</a>
+                  <a href="/product?id=5" class="btn btn-secondary my-2"
+                    >See product page</a
+                  >
                 </p>
               </div>
             </div>
           </section>
         </div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+        <div
+          class="tab-pane fade"
+          id="nav-profile"
+          role="tabpanel"
+          aria-labelledby="nav-profile-tab"
+          tabindex="0"
+        >
           <div class="container py-5">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
               <div class="col"></div>
               <div class="col">
                 <div class="list-group-flush text-center">
-                  <a href="/category?id=2" class="list-group-item list-group-item-action list-group-item-secondary"
+                  <a
+                    href="/category?id=2"
+                    class="list-group-item list-group-item-action list-group-item-secondary"
                     >Divisible by 2</a
                   >
 
-                  <a href="/category?id=4" class="list-group-item list-group-item-action list-group-item-secondary"
+                  <a
+                    href="/category?id=4"
+                    class="list-group-item list-group-item-action list-group-item-secondary"
                     >Divisible by 4</a
                   >
-                  <a href="/category?id=6" class="list-group-item list-group-item-action list-group-item-secondary"
+                  <a
+                    href="/category?id=6"
+                    class="list-group-item list-group-item-action list-group-item-secondary"
                     >Divisible by 6</a
                   >
                 </div>
@@ -93,20 +114,32 @@
             </div>
           </div>
         </div>
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+        <div
+          class="tab-pane fade"
+          id="nav-contact"
+          role="tabpanel"
+          aria-labelledby="nav-contact-tab"
+          tabindex="0"
+        >
           <div class="container py-5">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
               <div class="col"></div>
               <div class="col">
                 <div class="list-group-flush text-center">
-                  <a href="/category?id=3" class="list-group-item list-group-item-action list-group-item-secondary"
+                  <a
+                    href="/category?id=3"
+                    class="list-group-item list-group-item-action list-group-item-secondary"
                     >Divisible by 3</a
                   >
 
-                  <a href="/category?id=5" class="list-group-item list-group-item-action list-group-item-secondary"
+                  <a
+                    href="/category?id=5"
+                    class="list-group-item list-group-item-action list-group-item-secondary"
                     >Divisible by 5</a
                   >
-                  <a href="/category?id=7" class="list-group-item list-group-item-action list-group-item-secondary"
+                  <a
+                    href="/category?id=7"
+                    class="list-group-item list-group-item-action list-group-item-secondary"
                     >Divisible by 7</a
                   >
                 </div>
@@ -115,7 +148,13 @@
             </div>
           </div>
         </div>
-        <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
+        <div
+          class="tab-pane fade"
+          id="nav-disabled"
+          role="tabpanel"
+          aria-labelledby="nav-disabled-tab"
+          tabindex="0"
+        >
           ...
         </div>
       </div>
@@ -125,14 +164,20 @@
       <section class="py-5 bg-light">
         <div class="container px-4 px-lg-5 mt-5">
           <h2 class="fw-bolder mb-4">Newest products</h2>
-          <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          <div
+            class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+          >
             <% latest.forEach(function(entry) { %>
 
             <!--tu wsadzi się pętle-->
             <div class="col mb-5">
               <div class="card h-100">
                 <!-- Product image-->
-                <img class="card-img-top" src="/<%= entry.img_url %>" alt="..." />
+                <img
+                  class="card-img-top"
+                  src="/<%= entry.img_url %>"
+                  alt="..."
+                />
                 <!-- Product details-->
                 <div class="card-body p-4">
                   <div class="text-center">
@@ -145,7 +190,11 @@
                 <!-- Product actions-->
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                   <div class="text-center">
-                    <a class="btn btn-outline-dark mt-auto" href="/product?id=<%= entry.id %>">Product page</a>
+                    <a
+                      class="btn btn-outline-dark mt-auto"
+                      href="/product?id=<%= entry.id %>"
+                      >Product page</a
+                    >
                   </div>
                 </div>
               </div>
@@ -164,11 +213,11 @@
     ></script>
 
     <script>
-      const triggerTabList = document.querySelectorAll("#nav-tab button");
+      const triggerTabList = document.querySelectorAll('#nav-tab button');
       triggerTabList.forEach((triggerEl) => {
         const tabTrigger = new bootstrap.Tab(triggerEl);
 
-        triggerEl.addEventListener("mouseover", (event) => {
+        triggerEl.addEventListener('mouseover', (event) => {
           event.preventDefault();
           tabTrigger.show();
         });
@@ -213,7 +262,9 @@
 
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Number Store 2023</p>
+        <p class="m-0 text-center text-white">
+          Copyright &copy; Number Store 2023
+        </p>
       </div>
     </footer>
   </body>

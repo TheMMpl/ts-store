@@ -77,7 +77,6 @@ export default class Order {
         return [entry.product.id, entry.quantity];
       }
     );
-    console.log(products);
     const result = (
       await client.query(query, [userId, products, totalPrice.toDecimal()])
     ).rows[0];
