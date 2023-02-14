@@ -11,7 +11,6 @@
     <header><%- include('partials/header') %></header>
     <!-- do napisania sql MODIFY i DELETE-->
     <section class="py-5">
-        <% if(user.role=='admin') {%>
       <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
           <div class="col-md-6">
@@ -22,37 +21,38 @@
             />
           </div>
           <div class="col-md-6">
-            <div class="input-group mb-3">
-                  <label class="input-group-text" for="inputGroupSelect01"
-                    >Rename</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="<%= product.name %>"
-                    id="ProductName"
-                    aria-label="Username"
-                    name="name"
-                  />
-                </div>
+            <form action="edit_product" method="post">
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="inputGroupSelect01"
+                  >Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  value="<%= product.name %>"
+                  id="ProductName"
+                  aria-label="Username"
+                  name="name"
+                />
+              </div>
               <div class="input-group mb-3">
                 <span class="input-group-text">Description</span>
                 <textarea
                   class="form-control"
                   aria-label="With textarea"
                   style="height: 100px"
-                  placeholder="<%= product.description %>"
                   name="description"
-                ></textarea>
+                >
+<%= product.description %></textarea
+                >
               </div>
               <div class="input-group mb-3">
                 <span class="input-group-text">$</span>
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="<%= product.price.toDecimal() %>"
+                  value="<%= product.price.toDecimal() %>"
                   aria-label="Price"
-                  ,
                   name="price"
                 />
                 <button
@@ -65,52 +65,21 @@
               </div>
             </form>
             <div class="d-grid gap-2">
-                <button class="btn btn-primary py-2" type="submit" id="deletebutton">
-                  delete
+              <form action="delete_product" method="post">
+                <input type="hidden" name="id" value="<%= product.id %>" />
+                <button
+                  class="btn btn-primary py-2"
+                  type="submit"
+                  id="deletebutton"
+                >
+                  Delete product
                 </button>
-              </div>
-          </div>
-        </div>
-      </div>
-      <% }%>
-    </section>
-    <!-- Related items section
-    
-    Te pewnie się zastąpi jakąś pętlą wyciągającą z tej samej kategorii
-    -->
-
-    <!-- <section class="py-5 bg-light">
-      <div class="container px-4 px-lg-5 mt-5">
-        <h2 class="fw-bolder mb-4">Related products</h2>
-        <div
-          class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
-        > -->
-    <!--tu wsadzi się pętle-->
-    <!-- <div class="col mb-5">
-            <div class="card h-100"> -->
-    <!-- Product image-->
-    <!-- <img class="card-img-top" src="/imgurl" alt="..." /> -->
-    <!-- Product details-->
-    <!-- <div class="card-body p-4">
-                <div class="text-center"> -->
-    <!-- Product name-->
-    <!-- <h5 class="fw-bolder">name</h5> -->
-    <!-- Product price-->
-    <!-- </div>
-              </div> -->
-    <!-- Product actions-->
-    <!-- <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                  <a class="btn btn-outline-dark mt-auto" href="/product?id=id"
-                    >Product page</a
-                  >
-                </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
-    </section> -->
+    </section>
     <footer class="py-5 bg-dark">
       <div class="container">
         <p class="m-0 text-center text-white">

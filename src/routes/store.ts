@@ -94,10 +94,8 @@ storeRouter.get('/product_edit', async (req: Request, res: Response) => {
 
     res.render('product_edit', {
       product: product,
-      user: req.session.user
     });
-  }
-  catch (error) {
+  } catch (error) {
     res.status(400).send(error);
   }
 });
@@ -138,7 +136,7 @@ storeRouter.get('/product', async (req: Request, res: Response) => {
 
     res.render('product', {
       product: product,
-      user: req.session.user
+      user: req.session.user,
     });
   } catch (error) {
     res.status(400).send(error);
@@ -231,6 +229,38 @@ storeRouter.get('/category', async (req: Request, res: Response) => {
       items: await Product.getProductsFromCategory(category.id),
       categoryName: category.name,
     });
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+storeRouter.post('/delete_product', async (req: Request, res: Response) => {
+  try {
+    if (
+      !req.session.isLogged ||
+      req.session.user == null ||
+      req.session.user.role !== 'admin'
+    ) {
+      res.redirect('/');
+      return;
+    }
+
+    const id = req.body.id;
+    if (id == null) {
+      res.status(400).send('Invalid product id.');
+      return;
+    }
+
+    const product = await Product.findProductById(
+      Number.parseInt(id.toString())
+    );
+    if (product == null) {
+      res.redirect('/');
+      return;
+    }
+
+    Product.removeProduct(product.id);
+    res.redirect('/');
   } catch (error) {
     res.status(400).send(error);
   }

@@ -80,8 +80,8 @@ export default class Product {
   static async removeProduct(id: number): Promise<void> {
     const client = await pool.connect();
 
-    const query1 = 'DELETE FROM products WHERE id=$1';
-    const query2 = 'DELETE FROM products_categories WHERE product_id=$1';
+    const query1 = 'DELETE FROM products_categories WHERE product_id=$1';
+    const query2 = 'DELETE FROM products WHERE id=$1';
     await client.query(query1, [id]);
     await client.query(query2, [id]);
     client.release();
