@@ -137,4 +137,20 @@ export default class Product {
     client.release();
     return res;
   }
+
+  static async updateProduct(product: Product): Promise<void> {
+    const client = await pool.connect();
+    const query =
+      'UPDATE products SET name=$1, description=$2, price=$3, img_url=$4 WHERE id=$5';
+
+    await client.query(query, [
+      product.name,
+      product.description,
+      product.price,
+      product.img_url,
+      product.id,
+    ]);
+
+    client.release();
+  }
 }

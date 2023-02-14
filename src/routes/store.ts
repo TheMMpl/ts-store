@@ -266,4 +266,47 @@ storeRouter.post('/delete_product', async (req: Request, res: Response) => {
   }
 });
 
+storeRouter.post('/edit_product', async (req: Request, res: Response) => {
+  try {
+    if (
+      !req.session.isLogged ||
+      req.session.user == null ||
+      req.session.user.role !== 'admin'
+    ) {
+      res.redirect('/');
+      return;
+    }
+
+    const id = req.body.id;
+    if (id == null) {
+      res.status(400).send('Invalid product id.');
+      return;
+    }
+
+    const product = await Product.findProductById(
+      Number.parseInt(id.toString())
+    );
+    if (product == null) {
+      res.redirect('/');
+      return;
+    }
+
+    const prodName = req.body.name;
+    const prodDesc = req.body.description;
+    const prodPrice = req.body.price;
+
+    await Product.updateProduct({
+      id: product.id,
+      name: prodName,
+      description: prodDesc,
+      price: prodPrice,
+      img_url: product.img_url,
+    });
+
+    res.redirect('/');
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 export default storeRouter;
