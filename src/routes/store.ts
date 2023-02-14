@@ -70,6 +70,38 @@ storeRouter.post('/add_product', async (req: Request, res: Response) => {
   }
 });
 
+storeRouter.get('/product_edit', async (req: Request, res: Response) => {
+  try {
+    if (
+      !req.session.isLogged ||
+      req.session.user == null ||
+      req.session.user.role !== 'admin'
+    ) {
+      res.redirect('/');
+      return;
+    }
+    const id = req.query.id;
+    if (id == null) {
+      res.status(400).send('Invalid product id.');
+      return;
+    }
+    const prodId = Number.parseInt(id.toString());
+    const product = await Product.findProductById(prodId);
+    if (product == null) {
+      res.status(400).send('No product found.');
+      return;
+    }
+
+    res.render('product_edit', {
+      product: product,
+      user: req.session.user
+    });
+  }
+  catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 storeRouter.get('/cart', (req: Request, res: Response) => {
   if (req.session.shoppingCart == null)
     req.session.shoppingCart = new ShoppingCart();
@@ -106,6 +138,7 @@ storeRouter.get('/product', async (req: Request, res: Response) => {
 
     res.render('product', {
       product: product,
+      user: req.session.user
     });
   } catch (error) {
     res.status(400).send(error);

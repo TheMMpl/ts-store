@@ -9,7 +9,9 @@
   </head>
   <body>
     <header><%- include('partials/header') %></header>
+    <!-- do napisania sql MODIFY i DELETE-->
     <section class="py-5">
+        <% if(user.role=='admin') {%>
       <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
           <div class="col-md-6">
@@ -20,52 +22,57 @@
             />
           </div>
           <div class="col-md-6">
-            <h1 class="display-5 fw-bolder"><%= product.name %></h1>
-            <div class="fs-5 mb-5">
-              <span><%= product.price.toDecimal() %></span>
-            </div>
-            <p class="lead"><%= product.description %></p>
-            <form action="add_to_cart" method="post">
-              <div class="d-flex">
-                <input type="hidden" name="id" value="<%= product.id %>" />
+            <div class="input-group mb-3">
+                  <label class="input-group-text" for="inputGroupSelect01"
+                    >Rename</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="<%= product.name %>"
+                    id="ProductName"
+                    aria-label="Username"
+                    name="name"
+                  />
+                </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Description</span>
+                <textarea
+                  class="form-control"
+                  aria-label="With textarea"
+                  style="height: 100px"
+                  placeholder="<%= product.description %>"
+                  name="description"
+                ></textarea>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
                 <input
-                  class="form-control text-center me-3"
-                  id="inputQuantity"
-                  type="num"
-                  name="quantity"
-                  min="1"
-                  value="1"
-                  style="max-width: 3rem"
+                  type="text"
+                  class="form-control"
+                  placeholder="<%= product.price.toDecimal() %>"
+                  aria-label="Price"
+                  ,
+                  name="price"
                 />
                 <button
-                  class="btn btn-outline-dark flex-shrink-0"
+                  class="btn btn-outline-secondary"
                   type="submit"
+                  id="inputGroupFileAddon04"
                 >
-                  <i class="bi-cart-fill me-1"></i>
-                  Add to cart
+                  Edit
                 </button>
               </div>
             </form>
-            <% if(user.role=='admin') {%>
-              <div class="d-flex p-4">
-                <a
-                      class="btn btn-outline-dark mt-auto"
-                      href="/product_edit?id=<%= product.id %>"
-                      >modify</a
-                    >
-              <!--<form action="modify_product" method="get">
-                <button
-                  class="btn btn-outline-dark flex-shrink-0"
-                  type="submit"
-                >
-                modify
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary py-2" type="submit" id="deletebutton">
+                  delete
                 </button>
-                </form>-->
               </div>
-            <% }%>
           </div>
         </div>
       </div>
+      <% }%>
     </section>
     <!-- Related items section
     
